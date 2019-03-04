@@ -70,6 +70,7 @@
     <None Include="app.config" />
     <Content Include="App_Config\Include\Feature\Pintle.Swagger\Pintle.Swagger.Pipelines.config" />
     <Content Include="App_Config\Include\Feature\Pintle.Swagger\Pintle.Swagger.Settings.config" />
+    <None Include="App_Config\Include\Feature\Pintle.Swagger\Pintle.Swagger.IdentityServer.config.example" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

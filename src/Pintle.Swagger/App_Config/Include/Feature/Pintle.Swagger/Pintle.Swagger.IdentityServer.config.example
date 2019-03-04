@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration xmlns:patch="http://www.sitecore.net/xmlconfig/">
+	<sitecore>
+		<pipelines>
+			<owin.cookieAuthentication.validateIdentity>
+				<processor type="Sitecore.Owin.Authentication.Pipelines.CookieAuthentication.ValidateIdentity.ValidateSiteNeutralPaths, Sitecore.Owin.Authentication">
+					<siteNeutralPaths hint="list">
+						<path hint="swagger">/swagger</path>
+					</siteNeutralPaths>
+				</processor>
+			</owin.cookieAuthentication.validateIdentity>
+		</pipelines>
+	</sitecore>
+</configuration>

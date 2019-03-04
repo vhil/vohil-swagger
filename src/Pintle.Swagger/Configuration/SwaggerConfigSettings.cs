@@ -17,6 +17,7 @@
 		public const string SwaggerSettingsNodePath = "pintle/swagger/swaggerSettings";
 
 		private readonly IDictionary<string, ApiVersionSettings> apiVersions;
+		private string combinedXmlDocPath;
 
 		public SwaggerConfigSettings()
 		{
@@ -25,7 +26,20 @@
 		}
 
 		public virtual IEnumerable<ApiVersionSettings> ApiVersions => this.apiVersions.Values;
-		public virtual string CombinedXmlDocPath { get; set; }
+
+		public virtual string CombinedXmlDocPath
+		{
+			get
+			{
+				if (this.combinedXmlDocPath.StartsWith("/"))
+				{
+					return System.Web.Hosting.HostingEnvironment.MapPath(this.combinedXmlDocPath);
+				}
+
+				return this.combinedXmlDocPath;
+			}
+			set => this.combinedXmlDocPath = value;
+		}
 
 		public void AddApiVersion(string key, XmlNode node)
 		{

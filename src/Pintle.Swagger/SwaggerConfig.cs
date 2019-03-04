@@ -67,33 +67,35 @@
 
 				var targetFileNames = AppDomain.CurrentDomain.GetAssemblies()
 					.Select(x => x.GetName().Name)
-
-					// todo: create file filters in config 
-					//.Where(x =>
-					//	x.Contains(".Feature.") ||
-					//	x.Contains(".Foundation.") ||
-					//	x.Contains(".Project."))
 					.Select(x => $"{x.ToLowerInvariant().Replace(".dll", "")}.xml");
+
+				var binFolder = System.Web.Hosting.HostingEnvironment.MapPath("~/bin");
 
 				foreach (var fileName in targetFileNames)
 				{
-					var binFolder = System.Web.Hosting.HostingEnvironment.MapPath("~/bin");
-					var fullXmlFilePath = Path.Combine(binFolder, fileName);
-
-					if (File.Exists(fullXmlFilePath))
+					try
 					{
-						if (xml == null)
+						var fullXmlFilePath = Path.Combine(binFolder, fileName);
+
+						if (File.Exists(fullXmlFilePath))
 						{
-							xml = XElement.Load(fullXmlFilePath);
-						}
-						else
-						{
-							var dependentXml = XElement.Load(fullXmlFilePath);
-							foreach (var ele in dependentXml.Descendants())
+							if (xml == null)
 							{
-								xml.Add(ele);
+								xml = XElement.Load(fullXmlFilePath);
+							}
+							else
+							{
+								var dependentXml = XElement.Load(fullXmlFilePath);
+								foreach (var ele in dependentXml.Descendants())
+								{
+									xml.Add(ele);
+								}
 							}
 						}
+					}
+					catch
+					{
+						//
 					}
 				}
 
